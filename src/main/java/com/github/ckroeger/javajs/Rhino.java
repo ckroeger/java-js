@@ -9,13 +9,14 @@ import org.slf4j.LoggerFactory;
 public class Rhino {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Rhino.class);
+    public static final String STATIC_POWER_JS = "/static/power.js";
 
     private final Helper helper = new Helper();
 
     public Object execPower(int num) {
         Context cx = Context.enter();
         Scriptable scope = cx.initStandardObjects();
-        evalScript(cx, scope, "/static/power.js");
+        evalScript(cx, scope, STATIC_POWER_JS);
 
         return executeFunction(cx, scope, "power", num);
     }
@@ -23,7 +24,7 @@ public class Rhino {
     public Object exec(int num) {
         Context cx = Context.enter();
         Scriptable scope = cx.initStandardObjects();
-        evalScript(cx, scope, "/static/power.js");
+        evalScript(cx, scope, STATIC_POWER_JS);
         evalScript(cx, scope, "/static/cubic.js");
 
         Object power = executeFunction(cx, scope, "power", num);
@@ -34,18 +35,15 @@ public class Rhino {
         return power;
     }
 
+
     public Object execDynamic(int num) {
         Context cx = Context.enter();
         Scriptable scope = cx.initStandardObjects();
-        evalScript(cx, scope, "/static/power.js");
+        evalScript(cx, scope, STATIC_POWER_JS);
         evalScript(cx, scope, "/static/cubic.js");
 
         var script = String.format("cubic(%d)/power(%d)", num, num);
-        LOGGER.info(script);
-        Object result = cx.evaluateString(scope, script, "dynamic script", 1, null);
-        LOGGER.info("result of {} = {}", script, result);
-
-        return result;
+        return cx.evaluateString(scope, script, "dynamic script", 1, null);
     }
 
     private static Object executeFunction(Context cx, Scriptable scope, String functionName, Object... functionArgs) {
