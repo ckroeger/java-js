@@ -2,19 +2,20 @@ package com.github.ckroeger.javajs;
 
 import org.junit.jupiter.api.Test;
 import org.mozilla.javascript.Context;
-import org.openjdk.jmh.annotations.*;
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 @SuppressWarnings("java:S5786")
 public class RhinoTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(RhinoTest.class);
-
-
-
 
     @Test
     void test_execPower() {

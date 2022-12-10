@@ -6,13 +6,13 @@ import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
-class RhinoBenchmarkIT {
+class NashornBenchmarkIT {
 
     @Test
     @SuppressWarnings("squid:S2699")
-    void benchmark_rhino() throws RunnerException {
+    void benchmark_nashorn() throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(RhinoTest.class.getSimpleName())
+                .include(NashornTest.class.getSimpleName())
                 .warmupIterations(2)
                 .measurementBatchSize(1)
                 .measurementIterations(5)
